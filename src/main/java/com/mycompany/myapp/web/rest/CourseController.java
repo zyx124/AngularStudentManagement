@@ -84,7 +84,7 @@ public class CourseController {
         }
     }
 
-    @DeleteMapping(path = "/api/course/deleteCourse/{courseName}", produces = "application/js")
+    @DeleteMapping(path = "/api/course/deleteCourse/{courseName}", produces = "application/json")
     public HttpStatus deleteCourse(@NotNull @PathVariable("courseName") String courseName) {
         try {
             courseService.deleteCourse(courseName);
@@ -94,13 +94,10 @@ public class CourseController {
         }
     }
 
-    @PostMapping(path = "/api/course/addCourseToStudent/{courseName}", produces = "application/js")
-    public HttpStatus addCourseToStudent(@NotNull @PathVariable("courseName") UserCourse userCourse) {
-        try {
-            courseService.addCourseToStudent(userCourse);
-            return HttpStatus.OK;
-        } catch (Exception e) {
-            return HttpStatus.BAD_REQUEST;
-        }
+    @GetMapping(path = "/api/course/findAllCourseNameLongerThanTen", produces = "application/json")
+    public HttpEntity<List<CourseDto>> addCourseToStudent() {
+
+        List<CourseDto> allCourses = courseService.findAllCourseNameLongerThanTen();
+        return new ResponseEntity<>(allCourses, HttpStatus.OK);
     }
 }

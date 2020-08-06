@@ -33,9 +33,9 @@
                     <div style="padding-left: 5px">{{course.courseName}}</div>
                     <div>{{course.courseLocation}}</div>
                     <div>{{course.courseContent}}</div>
-                    <div>{{course.teacherId}}</div>
+                    <div>{{course.courseTeacher}}</div>
                     <button (click)="addCourseToStudent()">注册课程</button>
-                    <button>删除课程</button>
+                    <button (click)="deleteCourse(course.courseName)">删除课程</button>
                  </div>
             </div>
         </div>
@@ -58,18 +58,18 @@
         <hr>
         <div *ngIf="isAuthenticated()">
             <div>
-            <span>课程名称</span><input>
+            <span>课程名称</span><input [(ngModel)]="Name">
             </div>
             <div>
-                <span>课程地点</span><input>
+                <span>课程地点</span><input [(ngModel)]="Location">
             </div>
             <div>
-                <span>课程内容</span><input>
+                <span>课程内容</span><input [(ngModel)]="Content">
             </div>
             <div>
-                <span>课程老师</span><input>
+                <span>课程老师</span><input [(ngModel)]="Teacher">
             </div>
-            <button> 创建 </button>
+            <button (click)="addCourse()"> 创建 </button>
         </div>
 
         <!--<div *ngIf="isAuthenticated()">-->

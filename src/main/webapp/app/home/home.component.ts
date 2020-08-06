@@ -15,7 +15,13 @@ import { CourseWithTNDto } from 'app/shared/model/courseWithTN-dto.model';
 export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
-    classeNameNeedToReg: string;
+    classNameNeedToReg: string;
+
+    addedCourse: CourseDto;
+    Name: string;
+    Location: string;
+    Content: string;
+    Teacher: number;
 
     constructor(
         private principal: Principal,
@@ -76,12 +82,44 @@ export class HomeComponent implements OnInit {
     //
     // }
 
+    deleteCourse(courseName: String) {
+        debugger;
+        this.courseService.delete(courseName).subscribe(curDto => {
+            if (!curDto) {
+                this.courses = [];
+            }
+        });
+        this.courseService.getCourseInfo().subscribe(curDto => {
+            if (!curDto) {
+                this.courses = [];
+            } else {
+                this.courses = curDto;
+            }
+        });
+    }
+
     clearAllCourses() {
         this.courses = [];
     }
 
-    addCourseToStudent() {
-        const courseName = 'temp';
-        this.courseService.addCourseToStudent(courseName, currentUserCredential);
+    // addCourseToStudent() {
+    //     const courseName = 'temp';
+    //     this.courseService.addCourseToStudent(courseName, currentUserCredential);
+    // }
+
+    addCourse() {
+        debugger;
+
+        this.addedCourse = {
+            courseName: this.Name,
+            courseContent: this.Content,
+            courseLocation: this.Location,
+            teacherId: this.Teacher
+        };
+        this.courseService.createCourse(this.addedCourse).subscribe(curDto => {
+            if (!curDto) {
+                this.courses = [];
+            }
+        });
     }
 }
